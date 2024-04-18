@@ -1,19 +1,21 @@
-import { ThemeProvider,createTheme } from '@mui/material'
-import { defaultTheme } from './assets/defaultTheme'
-import './App.css'
-function App() {
+import { ThemeProvider, createTheme } from "@mui/material";
+import { defaultTheme } from "./assets/defaultTheme";
+import "./App.css";
+import { Outlet } from "react-router-dom";
+import Page from "./components/Page";
 
-  const theme = createTheme(defaultTheme)
-  
+function App() {
+  const theme = createTheme(defaultTheme);
+
   return (
     <>
-      <ThemeProvider theme={theme} >
+      <ThemeProvider theme={theme}>
         <Page>
-          <Main />
+          <Outlet />
         </Page>
       </ThemeProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,28 +1,15 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import React from "react";
+import  App  from "./App"
+import  Pokedex  from "./components/Pokedex"
+import  CreateUser  from "./components/CreateUser"
+import { createBrowserRouter } from "react-router-dom";
 
-import Root, { rootLoader } from "./routes/root";
-import Team, { teamLoader } from "./routes/team";
-
-const router = createBrowserRouter([
+export const routes = createBrowserRouter([
   {
-    path: "/",
-    element: <Root />,
-    loader: rootLoader,
+    element: <App />,
     children: [
-      {
-        path: "inscription",
-        element: <CreateAccount />,
-        loader: teamLoader,
-      },
+      { path: "/", element: <CreateUser /> },
+      { path: "/pokedex", element: <Pokedex /> },
     ],
   },
 ]);
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
