@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, Container } from "@mui/material";
 import Pokemon from "./Pokemon";
-import { getSpriteType } from "../services/users";
 
 export default function PokemonList({ pokemons, sprite }) {
   if (pokemons.length === 0) {

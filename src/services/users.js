@@ -29,9 +29,10 @@ export function getUsers() {
 
 export function createUser(name, avatarId) {
   const users = getUsers();
-  const user = { avatarId, name, pokedex: [], spriteType: "front_default"};
+  const user = { avatarId, name, pokedex: [], spriteType: "other.official-artwork.front_default"};
   users.push(user);
   localStorage.setItem("users", JSON.stringify(users));
+  return user;
 }
 
 export function getPokedex() {
@@ -39,30 +40,31 @@ export function getPokedex() {
   return user.pokedex;
 }
 
-export function addPokemonToPokedex(pokemonName) {
+export function addPokemonToPokedex(pokemon) {
   const user = getCurrentUser();
-  if (pokemonIsInPokedex(pokemonName)) {
+  if (pokemonIsInPokedex(pokemon.name)) {
     return;
   }
-  user.pokedex.push(pokemonName);
+  user.pokedex.push(pokemon);
   setUser(user);
 }
 
 export function removePokemonFromPokedex(pokemonName) {
   const user = getCurrentUser();
-  user.pokedex = user.pokedex.filter((name) => name !== pokemonName);
+  user.pokedex = user.pokedex.filter((pokemon) => pokemon.name !== pokemonName);
   setUser(user);
 }
 
 export function pokemonIsInPokedex(pokemonName) {
   const user = getCurrentUser();
-  return user.pokedex.includes(pokemonName);
+  return user.pokedex.some((pokemon) => pokemon.name === pokemonName);
 }
 
 export function deleteUser(index) {
   const users = getUsers();
   const user = getCurrentUser();
-  if (user.name === users[index].name && user.avatarId === users[index].avatarId) {
+
+  if (user != null && user.name === users[index].name && user.avatarId === users[index].avatarId) {
     disconnect();
   }
   users.splice(index, 1);

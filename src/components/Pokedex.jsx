@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Divider,
   Typography,
   Container,
-  Grid,
 } from "@mui/material";
-import { getCurrentUser, addPokemonToPokedex } from "../services/users";
+import { getCurrentUser } from "../services/users";
 import { useNavigate } from "react-router-dom";
-import Pokemon from "./Pokemon";
+import PokemonList from "./PokemonList";
 function Pokedex() {
   const user = getCurrentUser();
   const navigate = useNavigate();
@@ -22,13 +21,7 @@ function Pokedex() {
         {user.pokedex.length === 0 ? (
           <Typography variant="body1" sx={{marginBottom: 1, textAlign:"left"}}>Votre pokedex est vide</Typography>
         ) : (
-          <Grid container spacing={2} sx={{marginBottom: 1}}>
-            {user.pokedex.map((pokemonName, index) => (
-              <Grid item xs={6} key={index}>
-                <Pokemon pokemonName={pokemonName} />
-              </Grid>
-            ))}
-          </Grid>
+          <PokemonList pokemons={user.pokedex} sprite={user.spriteType} />
         )}
         <Divider variant="middle" sx={{marginBottom: 1}} />
         <Button fullWidth onClick={handleSearchClick} variant="contained">Rechercher un pokémon</Button>

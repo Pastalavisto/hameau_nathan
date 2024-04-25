@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Box,
   Container,
@@ -22,13 +22,16 @@ function Page({ children }) {
     disconnect();
     navigate("/");
   }
+  function handleClick() {
+    navigate("/pokedex");
+  }
   return (
     <Box>
       <Box sx={{ backgroundColor: "#F8F4F4", minHeight: "100vh" }}>
         <Container maxWidth="sm">
           <Box sx={{ paddingTop: 5, paddingBottom: 6 }}>
             <Box sx={{ marginBottom: 5, maxWidth: "300px", marginX: "auto" }}>
-              <img src={logo} alt="logo pokemon" />
+              <img onClick={handleClick} src={logo} alt="logo pokemon" style={{cursor:"pointer"}}/>
             </Box>
             {user && (
               <Stack

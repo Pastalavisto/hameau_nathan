@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Page from "./Page";
 import {
   Button,
   Typography,
@@ -9,8 +8,8 @@ import {
   Container,
   TextField,
 } from "@mui/material";
-import { Form, Navigate, useNavigate } from "react-router-dom";
-import { createUser, getCurrentUser } from "../services/users";
+import { Form, useNavigate } from "react-router-dom";
+import { createUser, setUser } from "../services/users";
 
 function CreateUser() {
 
@@ -21,8 +20,15 @@ function CreateUser() {
     
     const form = new FormData(event.target);
     const name = form.get("name");
-    createUser(name, avatarId);
-    navigate("/");
+    if (!name) {
+      return;
+    }
+    if (avatarId === 0) {
+      return;
+    }
+    const user = createUser(name, avatarId);
+    setUser(user);
+    navigate("/pokedex");
   }
   return (
     <>

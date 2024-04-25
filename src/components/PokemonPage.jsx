@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { getPokemon } from "../services/pokemonapi";
+import { getPokemon, getPokemonImage } from "../services/pokemonapi";
 import { useParams } from "react-router-dom";
 import {
   Chip,
   Typography,
   Stack,
   Box,
-  Avatar,
   Grid,
-  Container,
   Button,
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -17,18 +15,21 @@ import {
   addPokemonToPokedex,
   pokemonIsInPokedex,
   removePokemonFromPokedex,
+  getCurrentUser,
 } from "../services/users";
+
 export default function PokemonPage() {
   const { name } = useParams();
   const [pokemon, setPokemon] = React.useState(null);
   const navigate = useNavigate();
+  const user = getCurrentUser();
   useEffect(() => {
     getPokemon(name).then((data) => {
       setPokemon(data);
     });
   }, [name]);
   function handleAddClick() {
-    addPokemonToPokedex(pokemon.name);
+    addPokemonToPokedex(pokemon);
     navigate("/pokedex");
   }
   function handleReturnClick() {
@@ -64,7 +65,7 @@ export default function PokemonPage() {
           </Stack>
           <Box justifyContent={"center"} display={"flex"} marginBottom={2}>
             <img
-              src={pokemon.sprites.other["official-artwork"].front_default}
+              src={getPokemonImage(pokemon, user.spriteType)}
               alt={pokemon.name}
               style={{ width: "300px", height: "300px" }}
             />

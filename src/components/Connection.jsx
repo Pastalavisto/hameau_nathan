@@ -6,12 +6,9 @@ import {
   Avatar,
   Stack,
   Container,
-  TextField,
-  Icon,
 } from "@mui/material";
-import { Form, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  getCurrentUser,
   getUsers,
   setUser,
   deleteUser,
